@@ -1,0 +1,95 @@
+import React, { Component } from 'react';
+import { Provider, connect } from 'react-redux';
+import { createStore } from 'redux';
+
+const ADD = 'ADD';
+
+const addToDo = (message) => {
+  return {
+    type: ADD,
+    message: message
+  }
+};
+
+const toDoReducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD:
+      return [
+        ...state,
+        action.message
+      ];
+    default:
+      return state;
+  }
+};
+
+const store = createStore(toDoReducer);
+
+class Presentational extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: '',
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.submitToDo = this.submitToDo.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+
+  submitToDo() {
+    if (this.state.input !== '') {
+      this.props.submitNewToDo(this.state.input);
+      this.setState({
+        input: '',
+      });
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>Type in a new Message:</h2>
+        <input value={this.state.input} onChange={this.handleChange} />
+        <input value="Submit" type="button" onClick={this.submitToDo} />
+        <ul>
+          {this.props.messages.map((message, i) => 
+            <li key={i}>{message}</li>
+          )}
+        </ul>
+      </div>
+    );
+  }
+};
+
+const mapStateToProps = (state) => {
+  return { 
+    messages: state,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    submitNewToDo: (message) => {
+      dispatch(addToDo(message));
+    }
+  }
+};
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(Presentational);
+
+class AppWrapper extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Container/>
+      </Provider>
+    );
+  }
+};
+
+export default AppWrapper;
