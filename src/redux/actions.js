@@ -1,10 +1,19 @@
 import { ADD } from './types.js';
+import { RM } from './types.js';
 
-const addToDo = (message) => {
-  return {
-    type: ADD,
-    message: message
-  }
-};
+const actions = {
+  addToDo: (message) => {
+    return {
+      type: ADD,
+      message,
+    }
+  },
+  deleteToDo: (message) => {
+    return {
+      type: RM,
+      message,
+    }
+  },
+}
 
-export default addToDo;
+export default actions;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './NewMessages.scss';
 
 export default class NewMessage extends Component {
   constructor(props) {
@@ -16,21 +17,22 @@ export default class NewMessage extends Component {
     });
   }
 
-  submitToDo() {
-    if (this.state.input !== '') {
-      this.props.submitNewToDo(this.state.input);
-      this.setState({
-        input: '',
-      });
+  submitToDo(event) {
+    if (event.keyCode === 13) {
+      if (this.state.input !== '') {
+        this.props.submitNewToDo(this.state.input);
+        this.setState({
+          input: '',
+        });
+      }
     }
   }
 
   render() {
     return (
-      <div>
-        <h2>Add To Do:</h2>
-        <input value={this.state.input} onChange={this.handleChange} />
-        <input value="Add" type="button" onClick={this.submitToDo} />
+      <div id="to-do-header">
+        <h2>My To-Do List</h2>
+        <input placeholder="New To-Do" value={this.state.input} onChange={this.handleChange} onKeyDown={this.submitToDo} />
       </div>
     );
   }

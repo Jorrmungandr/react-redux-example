@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NewMessage from '../../components/NewMessage/NewMessage.jsx';
 import DisplayMessages from '../../components/DisplayMessages/DisplayMessages.jsx';
-import addToDo from '../../redux/actions.js';
+import actions from '../../redux/actions.js';
 import toDoReducer from '../../redux/reducers.js';
 import { Provider, connect } from 'react-redux';
 import { createStore } from 'redux';
@@ -14,7 +14,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     submitNewToDo: (todo) => {
-      dispatch(addToDo(todo));
+      dispatch(actions.addToDo(todo));
+    },
+    deleteToDo: (todo) => {
+      dispatch(actions.deleteToDo(todo));
     }
   }
 };

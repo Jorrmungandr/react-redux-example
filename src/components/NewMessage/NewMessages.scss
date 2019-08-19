@@ -1,0 +1,14 @@
+#to-do-header {
+  text-transform: uppercase;
+  background-color: rgb(97, 94, 255);
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  input {
+    width: 100%;
+    border: none;
+    padding: 5px 0;
+    padding-left: 10px;
+    margin-bottom: 4px;
+  }
+}
