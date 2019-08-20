@@ -1,5 +1,4 @@
-import { ADD } from './types.js';
-import { RM } from './types.js';
+import { ADD, RM, EDIT } from './types.js';
 
 const actions = {
   addToDo: (message) => {
@@ -8,12 +7,19 @@ const actions = {
       message,
     }
   },
-  deleteToDo: (message) => {
+  deleteToDo: (id) => {
     return {
       type: RM,
-      message,
+      id,
     }
   },
+  editToDo: (id, newValue) => {
+    return {
+      type: EDIT,
+      id,
+      newValue,
+    }
+  }
 }
 
 export default actions;

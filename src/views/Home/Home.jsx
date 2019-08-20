@@ -16,9 +16,12 @@ const mapDispatchToProps = (dispatch) => {
     submitNewToDo: (todo) => {
       dispatch(actions.addToDo(todo));
     },
-    deleteToDo: (todo) => {
-      dispatch(actions.deleteToDo(todo));
-    }
+    deleteToDoById: (id) => {
+      dispatch(actions.deleteToDo(id));
+    },
+    editToDoById: (id, newValue) => {
+      dispatch(actions.editToDo(id, newValue));
+    },
   }
 };
 
