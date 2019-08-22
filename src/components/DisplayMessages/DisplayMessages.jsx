@@ -15,15 +15,22 @@ export default class DisplayMessages extends Component {
   
   handleEdit(event) {
     const parent = event.target.parentElement;
-    parent.querySelector('h4').style.display = 'none';
-    parent.parentElement.querySelector('.edit-container').style.display = 'block';
+    const grandParent = parent.parentElement;
+    const input = grandParent.previousSibling.querySelector('input');
+
+    input.value = grandParent.querySelector('h4').innerHTML;
+    
+    grandParent.style.display = 'none';
+    grandParent.previousSibling.style.display = 'block';
+
+    input.focus();
   }
   
   submitEdit(event) {
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
       const parent = event.target.parentElement;
       parent.style.display = 'none';
-      parent.parentElement.querySelector('h4').style.display = 'block';
+      parent.nextSibling.style.display = 'flex';
       this.props.editToDoById(event.target.getAttribute('edit'), event.target.value);
       event.target.value = '';
     }
@@ -37,10 +44,12 @@ export default class DisplayMessages extends Component {
             <div className="edit-container">
               <input type="text" edit={todo.id} name="edit" id="edit" onKeyDown={this.submitEdit} />
             </div>
-            <div>
+            <div className="todo">
               <h4>{todo.message}</h4>
-              <span id="edit" onClick={this.handleEdit}>E</span>
-              <span id="trash" delete={todo.id} onClick={this.handleDelete}>X</span>
+              <div>
+                <span id="edit" onClick={this.handleEdit}>&#9998;</span>
+                <span id="trash" delete={todo.id} onClick={this.handleDelete}>X</span>
+              </div>
             </div>
           </li> 
         )}
